@@ -1,8 +1,9 @@
-import dotenv from 'dotenv'
-dotenv.config()
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const ENV = {
-    PORT : process.env.PORT || 3000,
-    MongoDB_URL : process.env.MongoDB_URL
-}
+  PORT: process.env.PORT || 5000,
+  MONGO_URL: process.env.MONGO_URL,
+};
 export default ENV;
