@@ -1,19 +1,18 @@
-const USER_ROLES = {
+export const USER_ROLES = {
     ADMIN:"ADMIN",
     STAFF:"STAFF"
 };
 
-const COUNTER_STATUS={
+export const COUNTER_STATUS={
     ACTIVE:"ACTIVE",
     PAUSED:"PAUSED",
     DISABLED:"DISABLED"
 };
 
-const QUEUE_STATUS = {
+export const QUEUE_STATUS = {
     WAITING:"WAITING",
     SERVING:"SERVING",
     DONE:"DONE",
     SKIPPED:"SKIPPED"
 };
 
-export {COUNTER_STATUS,USER_ROLES,QUEUE_STATUS}
