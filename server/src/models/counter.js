@@ -12,6 +12,6 @@ const counterschema = new mongoose.Schema(
     },
     {timestamps:true}
 );
-console.log(COUNTER_STATUS)
+// console.log(COUNTER_STATUS)
 
 export default mongoose.model("Counter",counterschema)
