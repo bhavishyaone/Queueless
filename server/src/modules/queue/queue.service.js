@@ -136,3 +136,11 @@ export const getLiveQueue = async () => {
 };
 
 
+// Get Token by Id
+export const getToken = async ({ tokenId }) => {
+    const token = await QueueToken.findById(tokenId);
+    if (!token) {
+        throw new Error("Token not found.");
+    }
+    return token;
+};

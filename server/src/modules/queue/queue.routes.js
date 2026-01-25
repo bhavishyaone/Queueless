@@ -1,5 +1,5 @@
 import express, { Router } from 'express'
-import {createTokenHandler,serveNextHandler,completeTokenHandler,skipTokenHandler,getLiveQueueHandler} from './queue.controller.js'
+import {createTokenHandler,serveNextHandler,completeTokenHandler,skipTokenHandler,getLiveQueueHandler,getTokenHandler} from './queue.controller.js'
 
 import {requireAuth} from '../../middleware/auth.middleware.js'
 import {requireRole} from '../../middleware/role.middleware.js'
@@ -8,6 +8,8 @@ import  {USER_ROLES}  from '../../utils/constants.js'
 const router = express.Router()
 
 router.get("/live",getLiveQueueHandler);
+
+router.get("/:id", requireAuth, getTokenHandler);
 
 router.post("/",requireAuth,requireRole(USER_ROLES.STAFF),createTokenHandler)
 

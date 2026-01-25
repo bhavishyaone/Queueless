@@ -1,4 +1,4 @@
-import {createToken,serveNextToken,completeToken,skipToken,getLiveQueue} from '../queue/queue.service.js'
+import {createToken,serveNextToken,completeToken,skipToken,getLiveQueue,getToken} from '../queue/queue.service.js'
 
 
 export const createTokenHandler = async (req,res)=>{
@@ -72,6 +72,16 @@ export const getLiveQueueHandler = async (req, res) => {
     
   } catch (err) {
 
+    console.log(err)
+    return res.status(500).json({message:'server error'})
+  }
+};
+
+export const getTokenHandler = async (req, res) => {
+  try {
+    const token = await getToken({ tokenId: req.params.id });
+    return res.status(200).json(token);
+  } catch (err) {
     console.log(err)
     return res.status(500).json({message:'server error'})
   }
