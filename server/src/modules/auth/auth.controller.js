@@ -25,6 +25,7 @@ const setupAdmin = async(req,res)=>{
         })
     }
     catch(err){
+        console.log(err)
         return res.status(500).json({message:"server error."})
     }
 };
@@ -36,7 +37,8 @@ const login = async (req,res)=>{
         res.json(result)
     }
     catch(err){
-        res.status(500).json({message:"server error"})
+        console.log(err)
+        return res.status(500).json({message:"server error"})
 
     }
 }
