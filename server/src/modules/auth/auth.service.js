@@ -1,7 +1,7 @@
-import User from "../models/User";
-import { USER_ROLES } from "../utils/constants.js";
+import User from "../../models/User.js";
+import { USER_ROLES } from "../../utils/constants.js";
 import bcrypt from 'bcrypt'
-import { signToken } from "../utils/jwt.js";
+import { signToken } from "../../utils/jwt.js";
 
 
 export const createAdmin = async ({name,email,password})=>{
