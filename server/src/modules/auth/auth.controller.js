@@ -43,7 +43,7 @@ const login = async (req,res)=>{
     }
 }
 
-module.exports = {
+export {
     setupAdmin,
     login
 }
