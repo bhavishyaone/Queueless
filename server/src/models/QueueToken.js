@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { QUEUE_STATUS } from "../utils/constants.js";
-import { type } from "os";
+
 
 
 const queuetokenschema = new mongoose.Schema(
