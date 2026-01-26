@@ -1,6 +1,5 @@
-import { log } from "console";
 import { createAdmin,loginUser } from "./auth.service.js";
-import {email, z} from 'zod'
+import { z} from 'zod'
 
 
 const adminSchema = z.object({
@@ -15,10 +14,10 @@ const loginSchema = z.object({
     password:z.string()
 })
 
-const setupAdmin = async(req,res)=>{
+export const setupAdmin = async(req,res)=>{
     try{
-        const data = adminSchema.parse(req.body)
-        const admin = await createAdmin(data)
+        const data = adminSchema.parse(req.body);
+        const admin = await createAdmin(data);
         return res.status(201).json({
             message:"Admin Created.",
             admin:{id:admin._id,email:admin.email}
@@ -26,11 +25,11 @@ const setupAdmin = async(req,res)=>{
     }
     catch(err){
         console.log(err)
-        return res.status(500).json({message:"server error."})
+        return res.status(500).json({message:"server error"})
     }
 };
 
-const login = async (req,res)=>{
+export const login = async (req,res)=>{
     try{
         const data  = loginSchema.parse(req.body)
         const result = await loginUser(data)
@@ -43,7 +42,3 @@ const login = async (req,res)=>{
     }
 }
 
-export {
-    setupAdmin,
-    login
-}
