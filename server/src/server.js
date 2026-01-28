@@ -8,7 +8,7 @@ const startserver = ()=>{
     const server = http.createServer(app)
     initSocket(server)
 
-    app.listen(ENV.PORT,console.log(`Server is running on port ${ENV.PORT}`))
+    server.listen(ENV.PORT,console.log(`Server is running on port ${ENV.PORT}`))
 }
 startserver();
 

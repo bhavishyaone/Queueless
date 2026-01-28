@@ -2,6 +2,7 @@ import QueueToken from '../../models/QueueToken.js'
 import Counter from '../../models/counter.js'
 import Clinic from '../../models/clinic.js'
 import  {COUNTER_STATUS,QUEUE_STATUS} from '../../utils/constants.js'
+import { getio } from '../../socket/socket.js'
 
 // Yeh Today ki date provide karega
 const today = ()=> new Date().toISOString().slice(0,10)
@@ -27,6 +28,8 @@ export const createToken = async()=>{
         tokenNumber:countToday+1,
         queueDate:today()
     })
+
+    getio().emit("queue updated")
 
     return token
 }
@@ -68,6 +71,8 @@ export const serveNextToken = async({counterId,user})=>{
 
 
     await nextToken.save()
+    getio().emit("queue updated")
+
     return nextToken
 
 }
@@ -91,6 +96,8 @@ export const completeToken = async({tokenId,user})=>{
     token.status = QUEUE_STATUS.DONE
     token.completedAt=new Date()
     await token.save()
+    getio().emit("queue updated")
+
     return token
 }
 
@@ -111,6 +118,8 @@ export const skipToken = async({tokenId})=>{
     token.status = QUEUE_STATUS.SKIPPED;
     token.skippedAt = new Date();
     await token.save();
+    getio().emit("queue updated")
+
 
     return token;
 }
