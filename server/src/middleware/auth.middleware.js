@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
-import { ENV } from "../config/env.js";
-import User from "../models/User.js";
+import  ENV  from "../config/env.js";
+import User from "../models/user.js";
 
 export const requireAuth = async (req, res, next) => {
   try {
@@ -11,6 +11,8 @@ export const requireAuth = async (req, res, next) => {
     }
 
     const token = header.split(" ")[1];
+    // console.log('JWT_SECRET in verify:', ENV.JWT_SECRET);
+    // console.log('Token received:', token);
     const decoded = jwt.verify(token, ENV.JWT_SECRET);
 
     const user = await User.findById(decoded.id).select("-password");
@@ -21,6 +23,7 @@ export const requireAuth = async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
+    console.log(error)
     return res.status(401).json({ message: "Invalid token" });
   }
 };

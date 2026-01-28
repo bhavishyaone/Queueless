@@ -4,7 +4,7 @@ const clinicschema = new mongoose.Schema({
     name:{type:String,required:true},
     address:String,
     openingHours:String,
-    isopen:{type:Boolean,default:false}
+    isOpen:{type:Boolean,default:false}
 },
     {timestamps:true}
 );

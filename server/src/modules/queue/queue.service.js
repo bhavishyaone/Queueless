@@ -15,17 +15,17 @@ export const createToken = async()=>{
         throw new Error('Clinic not found')
     }
 
-    if(!clinic.isopen){
+    if(!clinic.isOpen){
         throw new Error('Clinic is closed')
     }
 
     const countToday = await QueueToken.countDocuments({
-        queueDate:today
+        queueDate:today()
     })
 
     const token = await QueueToken.create({
         tokenNumber:countToday+1,
-        queueDate:today
+        queueDate:today()
     })
 
     return token

@@ -1,4 +1,4 @@
-import User from "../../models/User.js";
+import User from "../../models/user.js";
 import { USER_ROLES } from "../../utils/constants.js";
 import bcrypt from 'bcrypt'
 import { signToken } from "../../utils/jwt.js";

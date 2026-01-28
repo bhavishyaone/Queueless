@@ -1,9 +1,9 @@
 import {createToken,serveNextToken,completeToken,skipToken,getLiveQueue} from '../queue/queue.service.js'
 
 
-export const createTokenHandler = (req,res)=>{
+export const createTokenHandler = async (req,res)=>{
     try{
-        const token = createToken();
+        const token = await createToken();
         return res.status(201).json(token)
 
     }
@@ -15,9 +15,9 @@ export const createTokenHandler = (req,res)=>{
 };
 
 
-export const serveNextHandler = (req,res)=>{
+export const serveNextHandler = async (req,res)=>{
     try{
-        const token = serveNextToken({
+        const token = await serveNextToken({
             counterId:req.body.counterId,
             user:req.user
         })
