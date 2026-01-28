@@ -4,7 +4,6 @@ import cors from 'cors'
 import errorhandler from './middleware/error.middleware.js';
 import authRoutes from './modules/auth/auth.routes.js'
 import queueroutes from './modules/queue/queue.routes.js'
-
 const app = express();
 app.use(cors());
 app.use(express.json());

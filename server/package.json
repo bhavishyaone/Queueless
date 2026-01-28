@@ -20,6 +20,7 @@
     "mongodb": "7.0",
     "mongoose": "^9.1.4",
     "nodemon": "^3.1.11",
+    "socket.io": "^4.8.3",
     "zod": "^4.3.5"
   }
 }
