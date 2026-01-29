@@ -1,15 +1,12 @@
 import './App.css'
-import {Button} from './components/ui/button.jsx'
-
-function App() {
 
 
-  return (
-    <>
-      <h1>Chaliye Shuru karte hai.</h1>
-      <Button>Kya haal hai</Button>
-      </>
-  )
+
+const App = ()=>{
+  return <>
+    <h1>Chaliye shuru karte hai</h1>
+  </>
+
 }
 
 export default App
