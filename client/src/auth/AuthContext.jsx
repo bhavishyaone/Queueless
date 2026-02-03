@@ -3,7 +3,7 @@ import { useState,useContext,createContext } from "react";
 
 const AuthContext = createContext(null);
 
-export const authProvider = ({children})=>{
+export const AuthProvider = ({children})=>{
     const [user,setUser]=useState(()=>{
         const stored = localStorage.getItem("user")
         if(stored){

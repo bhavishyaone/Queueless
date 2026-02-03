@@ -33,7 +33,10 @@ export const login = async (req,res)=>{
     try{
         const data  = loginSchema.parse(req.body)
         const result = await loginUser(data)
-        res.json(result)
+        res.json({
+            ...result,
+            message: "You are logged in"
+        })
     }
     catch(err){
         console.log(err)
