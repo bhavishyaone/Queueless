@@ -1,5 +1,5 @@
-import { createAdmin,loginUser } from "./auth.service.js";
-import { z} from 'zod'
+import { createAdmin, loginUser, getAllStaffUsers } from "./auth.service.js";
+import { z } from 'zod'
 
 
 const adminSchema = z.object({
@@ -45,3 +45,12 @@ export const login = async (req,res)=>{
     }
 }
 
+export const getAllStaff = async (req, res) => {
+    try {
+        const staff = await getAllStaffUsers();
+        return res.status(200).json(staff);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ message: "server error" });
+    }
+};

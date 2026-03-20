@@ -52,6 +52,7 @@ export const loginUser = async({email,password})=>{
 
 }
 
-
-
-
+export const getAllStaffUsers = async () => {
+    const staff = await User.find({ role: { $ne: USER_ROLES.ADMIN } }).select("-password");
+    return staff;
+};
