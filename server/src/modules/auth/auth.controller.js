@@ -1,4 +1,4 @@
-import { createAdmin, loginUser, getAllStaffUsers } from "./auth.service.js";
+import { createAdmin, loginUser, getAllStaffUsers, createStaffUser } from "./auth.service.js";
 import { z } from 'zod'
 
 
@@ -52,5 +52,15 @@ export const getAllStaff = async (req, res) => {
     } catch (err) {
         console.log(err);
         return res.status(500).json({ message: "server error" });
+    }
+};
+
+export const createStaff = async (req, res) => {
+    try {
+        const staff = await createStaffUser(req.body);
+        return res.status(201).json({ message: "Staff Created.", staff: { id: staff._id, email: staff.email, role: staff.role } });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ message: err.message || "server error" });
     }
 };

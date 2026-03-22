@@ -56,3 +56,16 @@ export const getAllStaffUsers = async () => {
     const staff = await User.find({ role: { $ne: USER_ROLES.ADMIN } }).select("-password");
     return staff;
 };
+
+export const createStaffUser = async ({ name, email, password, role }) => {
+    const userExist = await User.exists({ email });
+    if (userExist) throw new Error("User with this email already exists.");
+    
+    if (!Object.values(USER_ROLES).includes(role) || role === USER_ROLES.ADMIN) {
+        throw new Error("Invalid role for staff creation.");
+    }
+    
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await User.create({ name, email, password: hashedPassword, role });
+    return user;
+};
