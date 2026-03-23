@@ -152,3 +152,13 @@ export const getHistoryQueue = async () => {
         status: { $in: [QUEUE_STATUS.DONE, QUEUE_STATUS.SKIPPED] }
     }).sort({ createdAt: -1 });
 };
+
+// Reset Queue
+export const resetQueue = async () => {
+    const result = await QueueToken.updateMany(
+        { queueDate: today(), status: QUEUE_STATUS.WAITING },
+        { status: QUEUE_STATUS.SKIPPED, skippedAt: new Date() }
+    );
+    getio().emit("queue updated");
+    return result;
+};
