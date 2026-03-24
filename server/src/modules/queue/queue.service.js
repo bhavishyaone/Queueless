@@ -144,3 +144,11 @@ export const getToken = async ({ tokenId }) => {
     }
     return token;
 };
+
+// Get History Queue
+export const getHistoryQueue = async () => {
+    return QueueToken.find({
+        queueDate: today(),
+        status: { $in: [QUEUE_STATUS.DONE, QUEUE_STATUS.SKIPPED] }
+    }).sort({ createdAt: -1 });
+};
