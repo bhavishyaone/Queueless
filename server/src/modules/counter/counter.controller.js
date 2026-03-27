@@ -39,3 +39,15 @@ export const updateCounterStatus = async (req, res) => {
         return res.status(500).json({ message: "server error" });
     }
 };
+
+export const deleteCounter = async (req, res) => {
+    try {
+        const counter = await Counter.findByIdAndDelete(req.params.id);
+        if (!counter) return res.status(404).json({ message: "Counter not found" });
+
+        return res.status(200).json({ message: "Counter deleted successfully" });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ message: "server error" });
+    }
+};
