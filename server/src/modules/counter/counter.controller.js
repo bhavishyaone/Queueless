@@ -16,3 +16,13 @@ export const createCounter = async (req, res) => {
         return res.status(500).json({ message: "server error" });
     }
 };
+
+export const getAllCounters = async (req, res) => {
+    try {
+        const counters = await Counter.find();
+        return res.status(200).json(counters);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ message: "server error" });
+    }
+};
