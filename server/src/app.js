@@ -5,6 +5,7 @@ import errorhandler from './middleware/error.middleware.js';
 import authRoutes from './modules/auth/auth.routes.js'
 import queueroutes from './modules/queue/queue.routes.js'
 import clinicRoutes from './modules/clinic/clinic.routes.js'
+import counterRoutes from './modules/counter/counter.routes.js'
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -12,5 +13,6 @@ app.use("/",testserverroutes)
 app.use("/auth",authRoutes)
 app.use("/queue",queueroutes)
 app.use("/clinic", clinicRoutes)
+app.use("/counter", counterRoutes)
 app.use(errorhandler);
 export default app;
