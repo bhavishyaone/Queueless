@@ -69,3 +69,7 @@ export const createStaffUser = async ({ name, email, password, role }) => {
     const user = await User.create({ name, email, password: hashedPassword, role });
     return user;
 };
+
+export const getAllUsers = async () => {
+    return User.find().select("-password");
+};

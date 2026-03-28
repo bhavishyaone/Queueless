@@ -1,4 +1,4 @@
-import { createAdmin, loginUser, getAllStaffUsers, createStaffUser } from "./auth.service.js";
+import { createAdmin, loginUser, getAllStaffUsers, createStaffUser, getAllUsers } from "./auth.service.js";
 import { z } from 'zod'
 
 
@@ -62,5 +62,15 @@ export const createStaff = async (req, res) => {
     } catch (err) {
         console.log(err);
         return res.status(500).json({ message: err.message || "server error" });
+    }
+};
+
+export const getUsersList = async (req, res) => {
+    try {
+        const users = await getAllUsers();
+        return res.status(200).json(users);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ message: "server error" });
     }
 };
