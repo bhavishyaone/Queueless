@@ -1,4 +1,4 @@
-import {createToken,serveNextToken,completeToken,skipToken,getLiveQueue,getToken,getHistoryQueue,resetQueue} from '../queue/queue.service.js'
+import {createToken,serveNextToken,completeToken,skipToken,getLiveQueue,getToken,getHistoryQueue,resetQueue,getQueueStats} from '../queue/queue.service.js'
 
 
 export const createTokenHandler = async (req,res)=>{
@@ -101,6 +101,16 @@ export const resetQueueHandler = async (req, res) => {
   try {
       await resetQueue();
       return res.status(200).json({ message: "Queue reset successfully. All waiting tokens marked as skipped." });
+  } catch (err) {
+      console.log(err);
+      return res.status(500).json({ message: 'server error' });
+  }
+};
+
+export const getQueueStatsHandler = async (req, res) => {
+  try {
+      const stats = await getQueueStats();
+      return res.status(200).json(stats);
   } catch (err) {
       console.log(err);
       return res.status(500).json({ message: 'server error' });

@@ -162,3 +162,11 @@ export const resetQueue = async () => {
     getio().emit("queue updated");
     return result;
 };
+
+// Get Queue Stats
+export const getQueueStats = async () => {
+    const total = await QueueToken.countDocuments({ queueDate: today() });
+    const waiting = await QueueToken.countDocuments({ queueDate: today(), status: QUEUE_STATUS.WAITING });
+    const done = await QueueToken.countDocuments({ queueDate: today(), status: QUEUE_STATUS.DONE });
+    return { total, waiting, done };
+};
