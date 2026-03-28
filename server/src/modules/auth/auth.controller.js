@@ -1,4 +1,5 @@
 import { createAdmin, loginUser, getAllStaffUsers, createStaffUser, getAllUsers } from "./auth.service.js";
+import User from "../../models/user.js";
 import { z } from 'zod'
 
 
@@ -69,6 +70,17 @@ export const getUsersList = async (req, res) => {
     try {
         const users = await getAllUsers();
         return res.status(200).json(users);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ message: "server error" });
+    }
+};
+
+export const getMe = async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id).select('-password');
+        if (!user) return res.status(404).json({ message: "User not found" });
+        return res.status(200).json(user);
     } catch (err) {
         console.log(err);
         return res.status(500).json({ message: "server error" });
