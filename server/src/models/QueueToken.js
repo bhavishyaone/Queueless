@@ -21,5 +21,8 @@ const queuetokenschema = new mongoose.Schema(
     },
     {timestamps:true}
 );
+
+queuetokenschema.index({ queueDate: 1 });
+queuetokenschema.index({ status: 1 });
 // console.log(QUEUE_STATUS)
 export default mongoose.model("QueueToken",queuetokenschema);
