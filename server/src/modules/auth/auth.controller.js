@@ -86,3 +86,14 @@ export const getMe = async (req, res) => {
         return res.status(500).json({ message: "server error" });
     }
 };
+
+export const deleteStaff = async (req, res) => {
+    try {
+        const user = await User.findByIdAndDelete(req.params.id);
+        if (!user) return res.status(404).json({ message: "Staff not found" });
+        return res.status(200).json({ message: "Staff deleted successfully" });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ message: "server error" });
+    }
+};
