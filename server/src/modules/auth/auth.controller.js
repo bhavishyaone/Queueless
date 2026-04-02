@@ -97,3 +97,14 @@ export const deleteStaff = async (req, res) => {
         return res.status(500).json({ message: "server error" });
     }
 };
+
+export const updateMe = async (req, res) => {
+    try {
+        const { name } = req.body;
+        const user = await User.findByIdAndUpdate(req.user._id, { name }, { new: true }).select('-password');
+        return res.status(200).json(user);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ message: "server error" });
+    }
+};
