@@ -1,6 +1,8 @@
 import { createAdmin, loginUser, getAllStaffUsers, createStaffUser, getAllUsers } from "./auth.service.js";
 import User from "../../models/user.js";
 import { z } from 'zod'
+import bcrypt from 'bcrypt';
+import { z } from 'zod'
 
 
 const adminSchema = z.object({
@@ -103,6 +105,22 @@ export const updateMe = async (req, res) => {
         const { name } = req.body;
         const user = await User.findByIdAndUpdate(req.user._id, { name }, { new: true }).select('-password');
         return res.status(200).json(user);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ message: "server error" });
+    }
+};
+
+export const updatePassword = async (req, res) => {
+    try {
+        const { currentPassword, newPassword } = req.body;
+        const user = await User.findById(req.user._id);
+        const match = await bcrypt.compare(currentPassword, user.password);
+        if (!match) return res.status(400).json({ message: "Incorrect current password" });
+
+        user.password = await bcrypt.hash(newPassword, 10);
+        await user.save();
+        return res.status(200).json({ message: "Password updated successfully" });
     } catch (err) {
         console.log(err);
         return res.status(500).json({ message: "server error" });
