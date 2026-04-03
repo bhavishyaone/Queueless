@@ -1,5 +1,5 @@
 import express from 'express'
-import { setupAdmin, login, getAllStaff, createStaff, getUsersList, getMe, deleteStaff } from './auth.controller.js'
+import { setupAdmin, login, getAllStaff, createStaff, getUsersList, getMe, deleteStaff, updateMe } from './auth.controller.js'
 import { requireAuth } from '../../middleware/auth.middleware.js'
 import { requireRole } from '../../middleware/role.middleware.js'
 import { USER_ROLES } from '../../utils/constants.js'
@@ -13,5 +13,6 @@ router.post("/staff", requireAuth, requireRole(USER_ROLES.ADMIN), createStaff)
 router.delete("/staff/:id", requireAuth, requireRole(USER_ROLES.ADMIN), deleteStaff)
 router.get("/users", requireAuth, requireRole(USER_ROLES.ADMIN), getUsersList)
 router.get("/me", requireAuth, getMe)
+router.patch("/me", requireAuth, updateMe)
 
 export default router;
