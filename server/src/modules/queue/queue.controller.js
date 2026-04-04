@@ -1,4 +1,4 @@
-import {createToken,serveNextToken,completeToken,skipToken,getLiveQueue,getToken,getHistoryQueue,resetQueue,getQueueStats} from '../queue/queue.service.js'
+import {createToken,serveNextToken,completeToken,skipToken,getLiveQueue,getToken,getHistoryQueue,resetQueue,getQueueStats,searchTokenNumber} from '../queue/queue.service.js'
 
 
 export const createTokenHandler = async (req,res)=>{
@@ -115,4 +115,15 @@ export const getQueueStatsHandler = async (req, res) => {
       console.log(err);
       return res.status(500).json({ message: 'server error' });
   }
+};
+
+export const searchTokenNumberHandler = async (req, res) => {
+    try {
+        const token = await searchTokenNumber(Number(req.params.tokenNumber));
+        if (!token) return res.status(404).json({ message: "Token not found for today" });
+        return res.status(200).json(token);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ message: 'server error' });
+    }
 };
