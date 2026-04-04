@@ -170,3 +170,8 @@ export const getQueueStats = async () => {
     const done = await QueueToken.countDocuments({ queueDate: today(), status: QUEUE_STATUS.DONE });
     return { total, waiting, done };
 };
+
+// Search Token by Number
+export const searchTokenNumber = async (tokenNumber) => {
+    return await QueueToken.findOne({ tokenNumber, queueDate: today() }).populate("counter._id");
+};
