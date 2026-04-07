@@ -1,5 +1,5 @@
 import express, { Router } from 'express'
-import {createTokenHandler,serveNextHandler,completeTokenHandler,skipTokenHandler,getLiveQueueHandler,getTokenHandler,getHistoryQueueHandler,resetQueueHandler,getQueueStatsHandler,searchTokenNumberHandler} from './queue.controller.js'
+import {createTokenHandler,serveNextHandler,completeTokenHandler,skipTokenHandler,getLiveQueueHandler,getTokenHandler,getHistoryQueueHandler,resetQueueHandler,getQueueStatsHandler,searchTokenNumberHandler,bulkCancelTokensHandler} from './queue.controller.js'
 
 import {requireAuth} from '../../middleware/auth.middleware.js'
 import {requireRole} from '../../middleware/role.middleware.js'
@@ -12,6 +12,7 @@ router.get("/history", requireAuth, requireRole(USER_ROLES.STAFF), getHistoryQue
 router.get("/stats", requireAuth, getQueueStatsHandler);
 router.get("/search/:tokenNumber", requireAuth, searchTokenNumberHandler);
 
+router.patch("/bulk-cancel", requireAuth, requireRole(USER_ROLES.ADMIN), bulkCancelTokensHandler);
 router.patch("/reset", requireAuth, requireRole(USER_ROLES.ADMIN), resetQueueHandler);
 
 router.get("/:id", requireAuth, getTokenHandler);
