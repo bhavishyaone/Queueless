@@ -1,4 +1,4 @@
-import {createToken,serveNextToken,completeToken,skipToken,getLiveQueue,getToken,getHistoryQueue,resetQueue,getQueueStats,searchTokenNumber} from '../queue/queue.service.js'
+import {createToken,serveNextToken,completeToken,skipToken,getLiveQueue,getToken,getHistoryQueue,resetQueue,getQueueStats,searchTokenNumber,bulkCancelTokens} from '../queue/queue.service.js'
 
 
 export const createTokenHandler = async (req,res)=>{
@@ -122,6 +122,20 @@ export const searchTokenNumberHandler = async (req, res) => {
         const token = await searchTokenNumber(Number(req.params.tokenNumber));
         if (!token) return res.status(404).json({ message: "Token not found for today" });
         return res.status(200).json(token);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ message: 'server error' });
+    }
+};
+
+export const bulkCancelTokensHandler = async (req, res) => {
+    try {
+        const { tokenIds } = req.body;
+        if (!Array.isArray(tokenIds) || tokenIds.length === 0) {
+            return res.status(400).json({ message: "Invalid token IDs array" });
+        }
+        await bulkCancelTokens(tokenIds);
+        return res.status(200).json({ message: "Tokens cancelled successfully" });
     } catch (err) {
         console.log(err);
         return res.status(500).json({ message: 'server error' });

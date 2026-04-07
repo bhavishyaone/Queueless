@@ -175,3 +175,13 @@ export const getQueueStats = async () => {
 export const searchTokenNumber = async (tokenNumber) => {
     return await QueueToken.findOne({ tokenNumber, queueDate: today() }).populate("counter._id");
 };
+
+// Bulk Cancel Tokens
+export const bulkCancelTokens = async (tokenIds) => {
+    const result = await QueueToken.updateMany(
+        { _id: { $in: tokenIds }, status: QUEUE_STATUS.WAITING },
+        { status: QUEUE_STATUS.SKIPPED, skippedAt: new Date() }
+    );
+    getio().emit("queue updated");
+    return result;
+};
