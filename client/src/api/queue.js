@@ -5,6 +5,21 @@ export const fetchLiveQueue = async () => {
   return res.data;
 };
 
+export const fetchQueueStats = async () => {
+  const res = await api.get("/queue/stats");
+  return res.data;
+};
+
+export const fetchHistoryQueue = async () => {
+  const res = await api.get("/queue/history");
+  return res.data;
+};
+
+export const searchByTokenNumber = async (tokenNumber) => {
+  const res = await api.get(`/queue/search/${tokenNumber}`);
+  return res.data;
+};
+
 export const createToken = async () => {
   const res = await api.post("/queue");
   return res.data;
@@ -22,5 +37,10 @@ export const completeToken = async (tokenId) => {
 
 export const skipToken = async (tokenId) => {
   const res = await api.patch(`/queue/${tokenId}/skip`);
+  return res.data;
+};
+
+export const resetQueue = async () => {
+  const res = await api.patch("/queue/reset");
   return res.data;
 };
